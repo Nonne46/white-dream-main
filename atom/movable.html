@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;atom&#x2F;movable - White Dream</title>
+</head>
+<body>
+<header>
+    <a href="index.html">White Dream</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="atom/movable.html#var">Var Details</a> - <a href="atom/movable.html#proc">Proc Details</a></header>
+<main>
+<h1>/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L1">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 1"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="atom/movable.html#var/affected_dynamic_lights">affected_dynamic_lights</a></th><td>Lazylist to keep track on the sources of illumination.</td></tr>
+            <tr><th><a href="atom/movable.html#var/affecting_dynamic_lumi">affecting_dynamic_lumi</a></th><td>Highest-intensity light affecting us, which determines our visibility.</td></tr>
+            <tr><th><a href="atom/movable.html#var/blocks_emissive">blocks_emissive</a></th><td>Either FALSE, <a href="code/__DEFINES/lighting.html#define/EMISSIVE_BLOCK_GENERIC" title="EMISSIVE_BLOCK_GENERIC">EMISSIVE_BLOCK_GENERIC</a>, or <a href="code/__DEFINES/lighting.html#define/EMISSIVE_BLOCK_UNIQUE" title="EMISSIVE_BLOCK_UNIQUE">EMISSIVE_BLOCK_UNIQUE</a></td></tr>
+            <tr><th><a href="atom/movable.html#var/brotation">brotation</a></th><td>how bounds handle rotation</td></tr>
+            <tr><th><a href="atom/movable.html#var/can_be_unanchored">can_be_unanchored</a></th><td>Used for the calculate_adjacencies proc for icon smoothing.</td></tr>
+            <tr><th><a href="atom/movable.html#var/can_sidestep">can_sidestep</a></th><td>whether or not we can sidestep</td></tr>
+            <tr><th><a href="atom/movable.html#var/demo_last_loc">demo_last_loc</a></th><td>Last location of the atom for demo recording purposes</td></tr>
+            <tr><th><a href="atom/movable.html#var/em_block">em_block</a></th><td>Internal holder for emissive blocker object, do not use directly use blocks_emissive</td></tr>
+            <tr><th><a href="atom/movable.html#var/fx">fx</a></th><td>stores fractional pixel movement in the x</td></tr>
+            <tr><th><a href="atom/movable.html#var/fy">fy</a></th><td>stores fractional pixel movement in the y</td></tr>
+            <tr><th><a href="atom/movable.html#var/generic_canpass">generic_canpass</a></th><td>If false makes <a href="atom.html#proc/CanPass" title="/atom">CanPass</a> call <a href="atom/movable.html#proc/CanPassThrough" title="/atom/movable">CanPassThrough</a> on this type instead of using default behaviour</td></tr>
+            <tr><th><a href="atom/movable.html#var/sidestep">sidestep</a></th><td>whether we are already sidestepping or not</td></tr>
+            <tr><th><a href="atom/movable.html#var/slider">slider</a></th><td>collider object</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="atom/movable.html#proc/CanPassThrough">CanPassThrough</a></th><td>Returns true or false to allow src to move through the blocker, mover has final say</td></tr>
+            <tr><th><a href="atom/movable.html#proc/CanReach">CanReach</a></th><td>A backwards depth-limited breadth-first-search to see if the target is
+logically &quot;in&quot; anything adjacent to us.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/Process_Spacemove">Process_Spacemove</a></th><td>Called whenever an object moves and by mobs when they attempt to move themselves through space
+And when an object or action applies a force on src, see <a href="atom/movable.html#proc/newtonian_move" title="/atom/movable">newtonian_move</a></td></tr>
+            <tr><th><a href="atom/movable.html#proc/add_blocked_language">add_blocked_language</a></th><td>Adds a language to the blocked language list. Use this over remove_language in cases where you will give languages back later.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/attacked_by">attacked_by</a></th><td>Called from <a href="obj/item.html#proc/attack_obj" title="/obj/item">/obj/item/proc/attack_obj</a> and <a href="obj/item.html#proc/attack" title="/obj/item">/obj/item/proc/attack</a> if the attack succeeds</td></tr>
+            <tr><th><a href="atom/movable.html#proc/can_speak_language">can_speak_language</a></th><td>Checks if atom can speak the language.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/copy_languages">copy_languages</a></th><td>Copies all languages into the supplied atom/language holder. Source should be overridden when you
+do not want the language overwritten by later atom updates or want to avoid blocked languages.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/could_speak_language">could_speak_language</a></th><td>Returns the result of tongue specific limitations on spoken languages.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/forceStep">forceStep</a></th><td>sets the step_ offsets to AM, or if AM is null sets the step_ values to the offsets
+sets the step_ offsets to that of AM, or if AM is null sets the step_ values to the offsets</td></tr>
+            <tr><th><a href="atom/movable.html#proc/get_language_holder">get_language_holder</a></th><td>Gets or creates the relevant language holder. For mindless atoms, gets the local one. For atom with mind, gets the mind one.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/get_random_spoken_language">get_random_spoken_language</a></th><td>Gets a random spoken language, useful for forced speech and such.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/get_random_understood_language">get_random_understood_language</a></th><td>Gets a random understood language, useful for hallucinations and such.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/get_selected_language">get_selected_language</a></th><td>Returns selected language, if it can be spoken, or finds, sets and returns a new selected language if possible.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/grant_all_languages">grant_all_languages</a></th><td>Grants every language.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/grant_language">grant_language</a></th><td>Grants the supplied language and sets omnitongue true.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/handle_pulled_movement">handle_pulled_movement</a></th><td>Handles the movement of the object src is pulling</td></tr>
+            <tr><th><a href="atom/movable.html#proc/handle_pulled_premove">handle_pulled_premove</a></th><td>Checks the distance between the object we're pulling before moving</td></tr>
+            <tr><th><a href="atom/movable.html#proc/has_language">has_language</a></th><td>Checks if atom has the language. If spoken is true, only checks if atom can speak the language.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/newtonian_move">newtonian_move</a></th><td>Only moves the object if it's under no gravity</td></tr>
+            <tr><th><a href="atom/movable.html#proc/on_enter_storage">on_enter_storage</a></th><td>called when this atom is added into a storage item, which is passed on as S. The loc variable is already set to the storage item.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/on_exit_storage">on_exit_storage</a></th><td>called when this atom is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/relay_container_resist_act">relay_container_resist_act</a></th><td>called when a mob resists while inside a container that is itself inside something.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/remove_all_languages">remove_all_languages</a></th><td>Removes every language and sets omnitongue false.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/remove_blocked_language">remove_blocked_language</a></th><td>Removes a language from the blocked language list.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/remove_language">remove_language</a></th><td>Removes a single language.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/setGrabState">setGrabState</a></th><td>Updates the grab state of the movable</td></tr>
+            <tr><th><a href="atom/movable.html#proc/set_anchored">set_anchored</a></th><td>Sets the anchored var and returns if it was sucessfully changed or not.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/set_light_range_power_color">set_light_range_power_color</a></th><td>Helper to change several lighting overlay settings.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/set_pulledby">set_pulledby</a></th><td>Reports the event of the change in value of the pulledby variable.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/shuttleRotate">shuttleRotate</a></th><td>Base /atom/movable proc</td></tr>
+            <tr><th><a href="atom/movable.html#proc/throw_at">throw_at</a></th><td>If this returns FALSE then callback will not be called.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/update_atom_languages">update_atom_languages</a></th><td>Empties out the atom specific languages and updates them according to the current atoms language holder.
+As a side effect, it also creates missing language holders in the process.</td></tr>
+            <tr><th><a href="atom/movable.html#proc/update_bounds">update_bounds</a></th><td>Updates bounds of the object depending on its brotation define</td></tr>
+            <tr><th><a href="atom/movable.html#proc/update_dynamic_luminosity">update_dynamic_luminosity</a></th><td>Keeps track of the sources of dynamic luminosity and updates our visibility with the highest.</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/affected_dynamic_lights"><aside class="declaration">var </aside>affected_dynamic_lights
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L72">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 72"/></a></h3>
+        <p>Lazylist to keep track on the sources of illumination.</p><h3 id="var/affecting_dynamic_lumi"><aside class="declaration">var </aside>affecting_dynamic_lumi
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L74">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 74"/></a></h3>
+        <p>Highest-intensity light affecting us, which determines our visibility.</p><h3 id="var/blocks_emissive"><aside class="declaration">var </aside>blocks_emissive
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L62">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 62"/></a></h3>
+        <p>Either FALSE, <a href="code/__DEFINES/lighting.html#define/EMISSIVE_BLOCK_GENERIC" title="EMISSIVE_BLOCK_GENERIC">EMISSIVE_BLOCK_GENERIC</a>, or <a href="code/__DEFINES/lighting.html#define/EMISSIVE_BLOCK_UNIQUE" title="EMISSIVE_BLOCK_UNIQUE">EMISSIVE_BLOCK_UNIQUE</a></p><h3 id="var/brotation"><aside class="declaration">var </aside>brotation
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L66">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 66"/></a></h3>
+        <p>how bounds handle rotation</p><h3 id="var/can_be_unanchored"><aside class="declaration">var </aside>can_be_unanchored
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L69">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 69"/></a></h3>
+        <p>Used for the calculate_adjacencies proc for icon smoothing.</p><h3 id="var/can_sidestep"><aside class="declaration">var </aside>can_sidestep
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L19">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 19"/></a></h3>
+        <p>whether or not we can sidestep</p><h3 id="var/demo_last_loc"><aside class="declaration">var </aside>demo_last_loc
+            <aside>&ndash; /<a href="atom.html">atom</a></aside>
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L60">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 60"/></a></h3>
+        <p>Last location of the atom for demo recording purposes</p><h3 id="var/em_block"><aside class="declaration">var </aside>em_block
+            <aside>&ndash; /<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/<a href="atom/movable/emissive_blocker.html">emissive_blocker</a></aside>
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L64">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 64"/></a></h3>
+        <p>Internal holder for emissive blocker object, do not use directly use blocks_emissive</p><h3 id="var/fx"><aside class="declaration">var </aside>fx
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L8">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 8"/></a></h3>
+        <p>stores fractional pixel movement in the x</p><h3 id="var/fy"><aside class="declaration">var </aside>fy
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L10">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 10"/></a></h3>
+        <p>stores fractional pixel movement in the y</p><h3 id="var/generic_canpass"><aside class="declaration">var </aside>generic_canpass
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L45">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 45"/></a></h3>
+        <p>If false makes <a href="atom.html#proc/CanPass" title="/atom">CanPass</a> call <a href="atom/movable.html#proc/CanPassThrough" title="/atom/movable">CanPassThrough</a> on this type instead of using default behaviour</p><h3 id="var/sidestep"><aside class="declaration">var </aside>sidestep
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L16">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 16"/></a></h3>
+        <p>whether we are already sidestepping or not</p><h3 id="var/slider"><aside class="declaration">var </aside>slider
+            <aside>&ndash; /<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/<a href="atom/movable/collider/slider.html">collider/slider</a></aside>
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L22">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 22"/></a></h3>
+        <p>collider object</p><h2 id="proc">Proc Details</h2><h3 id="proc/CanPassThrough"><aside class="declaration">proc </aside>CanPassThrough<aside>(/<a href="atom.html">atom</a>/blocker, /<a href="turf.html">turf</a>/target, blocker_opinion) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L786">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 786"/></a></aside>
+        </h3>
+        <p>Returns true or false to allow src to move through the blocker, mover has final say</p><h3 id="proc/CanReach"><aside class="declaration">proc </aside>CanReach<aside>(/<a href="atom.html">atom</a>/ultimate_target, /<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/tool, view_only) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/_onclick/click.dm#L186">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;click.dm 186"/></a></aside>
+        </h3>
+        <p>A backwards depth-limited breadth-first-search to see if the target is
+logically &quot;in&quot; anything adjacent to us.</p><h3 id="proc/Process_Spacemove"><aside class="declaration">proc </aside>Process_Spacemove<aside>(movement_dir) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L609">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 609"/></a></aside>
+        </h3>
+        <p>Called whenever an object moves and by mobs when they attempt to move themselves through space
+And when an object or action applies a force on src, see <a href="atom/movable.html#proc/newtonian_move" title="/atom/movable">newtonian_move</a></p>
+<p>Return 0 to have src start/keep drifting in a no-grav area and 1 to stop/not start drifting</p>
+<p>Mobs should return 1 if they should be able to move of their own volition, see <a href="client.html" title="/client">/client/Move</a></p>
+<p>Arguments:</p>
+<ul>
+<li>movement_dir - 0 when stopping or any dir when trying to move</li>
+</ul><h3 id="proc/add_blocked_language"><aside class="declaration">proc </aside>add_blocked_language<aside>(language, source) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L946">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 946"/></a></aside>
+        </h3>
+        <p>Adds a language to the blocked language list. Use this over remove_language in cases where you will give languages back later.</p><h3 id="proc/attacked_by"><aside class="declaration">proc </aside>attacked_by<aside>() 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/_onclick/item_attack.dm#L120">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;item_attack.dm 120"/></a></aside>
+        </h3>
+        <p>Called from <a href="obj/item.html#proc/attack_obj" title="/obj/item">/obj/item/proc/attack_obj</a> and <a href="obj/item.html#proc/attack" title="/obj/item">/obj/item/proc/attack</a> if the attack succeeds</p><h3 id="proc/can_speak_language"><aside class="declaration">proc </aside>can_speak_language<aside>(language) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L961">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 961"/></a></aside>
+        </h3>
+        <p>Checks if atom can speak the language.</p><h3 id="proc/copy_languages"><aside class="declaration">proc </aside>copy_languages<aside>(from_holder, source_override) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L986">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 986"/></a></aside>
+        </h3>
+        <p>Copies all languages into the supplied atom/language holder. Source should be overridden when you
+do not want the language overwritten by later atom updates or want to avoid blocked languages.</p><h3 id="proc/could_speak_language"><aside class="declaration">proc </aside>could_speak_language<aside>(language) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L966">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 966"/></a></aside>
+        </h3>
+        <p>Returns the result of tongue specific limitations on spoken languages.</p><h3 id="proc/forceStep"><aside class="declaration">proc </aside>forceStep<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/AM, _step_x, _step_y) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L522">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 522"/></a></aside>
+        </h3>
+        <p>sets the step_ offsets to AM, or if AM is null sets the step_ values to the offsets
+sets the step_ offsets to that of AM, or if AM is null sets the step_ values to the offsets</p>
+<p>Pixel counterpart of forceMove
+should be used when only wanting to set the step values
+can either pass a movable you want to copy step values from
+leave AM null and input step_ values manually
+Arguments:</p>
+<ul>
+<li>AM - The movable we want to copy step_ values from</li>
+<li>_step_x - Alternative step_x value when AM is null</li>
+<li>_step_y - Alternative step_y value when AM is null</li>
+</ul><h3 id="proc/get_language_holder"><aside class="declaration">proc </aside>get_language_holder<aside>(get_minds) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L920">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 920"/></a></aside>
+        </h3>
+        <p>Gets or creates the relevant language holder. For mindless atoms, gets the local one. For atom with mind, gets the mind one.</p><h3 id="proc/get_random_spoken_language"><aside class="declaration">proc </aside>get_random_spoken_language<aside>() 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L980">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 980"/></a></aside>
+        </h3>
+        <p>Gets a random spoken language, useful for forced speech and such.</p><h3 id="proc/get_random_understood_language"><aside class="declaration">proc </aside>get_random_understood_language<aside>() 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L975">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 975"/></a></aside>
+        </h3>
+        <p>Gets a random understood language, useful for hallucinations and such.</p><h3 id="proc/get_selected_language"><aside class="declaration">proc </aside>get_selected_language<aside>() 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L970">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 970"/></a></aside>
+        </h3>
+        <p>Returns selected language, if it can be spoken, or finds, sets and returns a new selected language if possible.</p><h3 id="proc/grant_all_languages"><aside class="declaration">proc </aside>grant_all_languages<aside>(understood, spoken, grant_omnitongue, source) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L931">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 931"/></a></aside>
+        </h3>
+        <p>Grants every language.</p><h3 id="proc/grant_language"><aside class="declaration">proc </aside>grant_language<aside>(language, understood, spoken, source) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L926">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 926"/></a></aside>
+        </h3>
+        <p>Grants the supplied language and sets omnitongue true.</p><h3 id="proc/handle_pulled_movement"><aside class="declaration">proc </aside>handle_pulled_movement<aside>() 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L331">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 331"/></a></aside>
+        </h3>
+        <p>Handles the movement of the object src is pulling</p>
+<p>Tries to correct the pulled object if it's stuck
+uses degstep to move the pulled object at an angle</p><h3 id="proc/handle_pulled_premove"><aside class="declaration">proc </aside>handle_pulled_premove<aside>(/<a href="atom.html">atom</a>/newloc, direct, _step_x, _step_y) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L359">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 359"/></a></aside>
+        </h3>
+        <p>Checks the distance between the object we're pulling before moving</p>
+<p>Returns FALSE and prevents movement if the object we're pulling is too far and the direction
+src is moving isn't towards the pulled object.
+Returns TRUE and allows movement if the object we're pulling is in range.</p><h3 id="proc/has_language"><aside class="declaration">proc </aside>has_language<aside>(language, spoken) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L956">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 956"/></a></aside>
+        </h3>
+        <p>Checks if atom has the language. If spoken is true, only checks if atom can speak the language.</p><h3 id="proc/newtonian_move"><aside class="declaration">proc </aside>newtonian_move<aside>(direction) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L629">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 629"/></a></aside>
+        </h3>
+        <p>Only moves the object if it's under no gravity</p><h3 id="proc/on_enter_storage"><aside class="declaration">proc </aside>on_enter_storage<aside>(/<a href="datum.html">datum</a>/<a href="datum/component.html">component</a>/storage/concrete/master_storage) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L796">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 796"/></a></aside>
+        </h3>
+        <p>called when this atom is added into a storage item, which is passed on as S. The loc variable is already set to the storage item.</p><h3 id="proc/on_exit_storage"><aside class="declaration">proc </aside>on_exit_storage<aside>(/<a href="datum.html">datum</a>/<a href="datum/component.html">component</a>/storage/concrete/master_storage) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L792">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 792"/></a></aside>
+        </h3>
+        <p>called when this atom is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.</p><h3 id="proc/relay_container_resist_act"><aside class="declaration">proc </aside>relay_container_resist_act<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/user, /<a href="obj.html">obj</a>/O) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L816">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 816"/></a></aside>
+        </h3>
+        <p>called when a mob resists while inside a container that is itself inside something.</p><h3 id="proc/remove_all_languages"><aside class="declaration">proc </aside>remove_all_languages<aside>(source, remove_omnitongue) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L941">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 941"/></a></aside>
+        </h3>
+        <p>Removes every language and sets omnitongue false.</p><h3 id="proc/remove_blocked_language"><aside class="declaration">proc </aside>remove_blocked_language<aside>(language, source) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L951">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 951"/></a></aside>
+        </h3>
+        <p>Removes a language from the blocked language list.</p><h3 id="proc/remove_language"><aside class="declaration">proc </aside>remove_language<aside>(language, understood, spoken, source) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L936">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 936"/></a></aside>
+        </h3>
+        <p>Removes a single language.</p><h3 id="proc/setGrabState"><aside class="declaration">proc </aside>setGrabState<aside>(newstate) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L1031">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 1031"/></a></aside>
+        </h3>
+        <p>Updates the grab state of the movable</p>
+<p>This exists to act as a hook for behaviour</p><h3 id="proc/set_anchored"><aside class="declaration">proc </aside>set_anchored<aside>(anchorvalue) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L488">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 488"/></a></aside>
+        </h3>
+        <p>Sets the anchored var and returns if it was sucessfully changed or not.</p><h3 id="proc/set_light_range_power_color"><aside class="declaration">proc </aside>set_light_range_power_color<aside>(range, power, color) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/movable_luminosity.dm#L16">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;movable_luminosity.dm 16"/></a></aside>
+        </h3>
+        <p>Helper to change several lighting overlay settings.</p><h3 id="proc/set_pulledby"><aside class="declaration">proc </aside>set_pulledby<aside>(new_pulledby) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L279">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 279"/></a></aside>
+        </h3>
+        <p>Reports the event of the change in value of the pulledby variable.</p><h3 id="proc/shuttleRotate"><aside class="parent"><a title="/atom" href="atom.html#proc/shuttleRotate">&uarr;</a></aside>shuttleRotate<aside>(rotation, params) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/modules/shuttle/shuttle_rotate.dm#L30">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;shuttle&#x2F;shuttle_rotate.dm 30"/></a></aside>
+        </h3>
+        <p>Base /atom/movable proc</p><h3 id="proc/throw_at"><aside class="declaration">proc </aside>throw_at<aside>(/<a href="atom.html">atom</a>/target, range, speed, /<a href="mob.html">mob</a>/thrower, spin, diagonals_first, /<a href="datum.html">datum</a>/<a href="datum/callback.html">callback</a>/callback, force, gentle, quickstart, params) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L662">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 662"/></a></aside>
+        </h3>
+        <p>If this returns FALSE then callback will not be called.</p><h3 id="proc/update_atom_languages"><aside class="declaration">proc </aside>update_atom_languages<aside>() 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L995">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 995"/></a></aside>
+        </h3>
+        <p>Empties out the atom specific languages and updates them according to the current atoms language holder.
+As a side effect, it also creates missing language holders in the process.</p><h3 id="proc/update_bounds"><aside class="declaration">proc </aside>update_bounds<aside>(olddir, newdir) 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/atoms_movable.dm#L467">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movable.dm 467"/></a></aside>
+        </h3>
+        <p>Updates bounds of the object depending on its brotation define</p>
+<p>Called on setDir and updates the bounds accordingly
+Unless you have some really weird rotation try to implement a generic version of your rotation here and make a flag for it
+Arguments:</p>
+<ul>
+<li>olddir - The old direction</li>
+<li>newdir - The new direction</li>
+</ul><h3 id="proc/update_dynamic_luminosity"><aside class="declaration">proc </aside>update_dynamic_luminosity<aside>() 
+        
+    
+            <a href="https://github.com/frosty-dev/white-dream-main/blob/9c542a1c7bbd17909f729ce7563541a3c9a83edc/code/game/movable_luminosity.dm#L2">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;movable_luminosity.dm 2"/></a></aside>
+        </h3>
+        <p>Keeps track of the sources of dynamic luminosity and updates our visibility with the highest.</p></main>
+<footer>
+    tgstation.dme
+    <a href="https://github.com/frosty-dev/white-dream-main/tree/9c542a1c7bbd17909f729ce7563541a3c9a83edc">9c542a1</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a></footer>
+</body>
+</html>
